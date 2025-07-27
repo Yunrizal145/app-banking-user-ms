@@ -95,11 +95,13 @@ public class UserManagementService {
 
             UserProfile user = userProfileRepository.findTopByPhoneNumberAndIsDeleted(request.getPhoneNumber(), false)
                     .orElse(null);
+            log.info("data user : {}", user);
             if (user==null) {
                 throw new NullPointerException("Data Is Empty");
             }
 
             UserAuthentication userAuthentication = userAuthenticationRepository.findTopByUserProfileIdAndIsRegistered(user.getId(), false).get();
+            log.info("data user auth : {}", userAuthentication);
 
             userAuthentication.setPassword(passwordEncoder.encode(request.getPassword()));
             userAuthentication.setMpin(passwordEncoder.encode(request.getMpin()));
