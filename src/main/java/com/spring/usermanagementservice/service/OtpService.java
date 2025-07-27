@@ -5,6 +5,7 @@ import com.spring.usermanagementservice.dto.OtpRequest;
 import com.spring.usermanagementservice.model.OtpValidation;
 import com.spring.usermanagementservice.repository.OtpValidationRespository;
 import com.spring.usermanagementservice.util.OtpGenerator;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,6 +24,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class OtpService {
 
 //    @Value("${}")
@@ -54,6 +56,8 @@ public class OtpService {
         otpValidation.setCreatedAt(now);
         otpValidation.setExpiresAt(expired);
         otpValidationRespository.save(otpValidation);
+
+        log.info("otp code : {}", otp);
 
         if (TypeOtp.EMAIL.equals(request.getSendOtpType())) {
             sendEmail(destination, otp);

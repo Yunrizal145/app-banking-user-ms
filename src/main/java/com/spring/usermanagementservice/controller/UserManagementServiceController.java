@@ -35,17 +35,27 @@ public class UserManagementServiceController {
     }
 
     @PostMapping("/getuserprofile")
-    public GetUserProfileResponse getUserProfile(GetUserProfileRequest request) {
+    public GetUserProfileResponse getUserProfile(@RequestBody GetUserProfileRequest request) {
         return userManagementService.getUserProfile(request);
     }
 
+    @PostMapping("/getuserprofilebyid")
+    public GetUserProfileResponse getUserProfileById(@RequestBody GetUserProfileRequest request) {
+        return userManagementService.getUserProfileByUserProfileId(request);
+    }
+
     @PostMapping("/getuserauthentication")
-    public GetUserAuthenticationResponse getUserAuthentication(GetUserAuthenticationRequest request) {
+    public GetUserAuthenticationResponse getUserAuthentication(@RequestBody GetUserAuthenticationRequest request) {
         return userManagementService.getUserAuthentication(request);
     }
 
+    @PostMapping("/getuserauthenticationbyusername")
+    public GetUserAuthenticationResponse getUserAuthenticationByUsername(@RequestBody GetUserAuthenticationRequest request) {
+        return userManagementService.getUserAuthenticationByUsername(request);
+    }
+
     @PostMapping("/validatempinbyencryption")
-    public ValidateMpinResponse validateMpin(ValidateMpinRequest request) {
+    public ValidateMpinResponse validateMpin(@RequestBody ValidateMpinRequest request) {
         return userManagementService.validateMpin(request);
     }
 }

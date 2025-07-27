@@ -44,7 +44,7 @@ public class UserManagementService {
             // Check data in db when is exists
             var userProfile = userProfileRepository.findTopByEmailOrPhoneNumberAndIsDeleted(request.getEmail(), request.getPhoneNumber(), false);
             log.info("check user profile : {}", userProfile);
-            if (userProfile.isEmpty()) {
+            if (!userProfile.isEmpty()) {
                 throw new RuntimeException("user is already exists!!");
             }
 
@@ -99,7 +99,7 @@ public class UserManagementService {
                 throw new NullPointerException("Data Is Empty");
             }
 
-            UserAuthentication userAuthentication = userAuthenticationRepository.findTopByUserProfileAndIsRegistered(user, false).get();
+            UserAuthentication userAuthentication = userAuthenticationRepository.findTopByUserProfileIdAndIsRegistered(user.getId(), false).get();
 
             userAuthentication.setPassword(passwordEncoder.encode(request.getPassword()));
             userAuthentication.setMpin(passwordEncoder.encode(request.getMpin()));
@@ -132,6 +132,22 @@ public class UserManagementService {
         }
     }
 
+    public GetUserProfileResponse getUserProfileByUserProfileId(GetUserProfileRequest request) {
+        log.info("start get data user profile");
+        try {
+            Optional<UserProfile> userProfile = userProfileRepository.findTopByIdAndIsDeleted(request.getUserProfileId(), false);
+            if (userProfile.isEmpty()) {
+                throw new NullPointerException("Data User Profile is null");
+            }
+
+            return GetUserProfileResponse.builder()
+                    .userProfile(userProfile.get())
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("Error when get data user profile : {}", e);
+        }
+    }
+
     public GetUserAuthenticationResponse getUserAuthentication(GetUserAuthenticationRequest request) {
         log.info("start get data user authentication");
         try {
@@ -145,6 +161,22 @@ public class UserManagementService {
                     .build();
         } catch (Exception e) {
             throw new RuntimeException("Error when get data user profile : {}", e);
+        }
+    }
+
+    public GetUserAuthenticationResponse getUserAuthenticationByUsername(GetUserAuthenticationRequest request) {
+        log.info("start get data user authentication");
+        try {
+            Optional<UserAuthentication> userAuthentication = userAuthenticationRepository.findTopByUsernameAndIsDeleted(request.getUsername(), false);
+            if (userAuthentication.isEmpty()) {
+                throw new NullPointerException("Data User Authentication is null");
+            }
+
+            return GetUserAuthenticationResponse.builder()
+                    .userAuthentication(userAuthentication.get())
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("Error when get data user authentication : {}", e);
         }
     }
 

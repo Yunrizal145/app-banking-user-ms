@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserAuthenticationRepository extends JpaRepository<UserAuthentication, Long> {
 
-    Optional<UserAuthentication> findTopByUserProfileAndIsRegistered(UserProfile userProfile, boolean isRegistered);
+    Optional<UserAuthentication> findTopByUserProfileIdAndIsRegistered(Long userProfileId, boolean isRegistered);
     Optional<UserAuthentication> findTopByUserProfileIdAndIsDeleted(Long userProfileId, boolean isDeleted);
+    Optional<UserAuthentication> findTopByUsernameAndIsDeleted(String username, boolean isDeleted);
 }

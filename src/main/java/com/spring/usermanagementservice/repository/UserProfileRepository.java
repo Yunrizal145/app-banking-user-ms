@@ -11,4 +11,5 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
 
     Optional<UserProfile> findTopByEmailOrPhoneNumberAndIsDeleted(String email, String phoneNumber, boolean isDeleted);
     Optional<UserProfile> findTopByPhoneNumberAndIsDeleted(String phoneNumber, boolean isDeleted);
+    Optional<UserProfile> findTopByIdAndIsDeleted(Long userProfileId, boolean isDeleted);
 }

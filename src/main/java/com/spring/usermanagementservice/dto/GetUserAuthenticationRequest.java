@@ -16,4 +16,5 @@ public class GetUserAuthenticationRequest implements Serializable {
     private static final long serialVersionUID = -2400994935472312558L;
 
     private Long userProfileId;
+    private String username;
 }

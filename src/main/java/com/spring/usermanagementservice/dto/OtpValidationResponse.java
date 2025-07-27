@@ -11,10 +11,9 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetUserProfileRequest implements Serializable {
-    private static final long serialVersionUID = 408777002171491742L;
+public class OtpValidationResponse implements Serializable {
+    private static final long serialVersionUID = -8696120561311287399L;
 
-    private Long userProfileId;
-    private String phoneNumber;
-    private String email;
+    private String message;
+    private boolean isSuccess;
 }
