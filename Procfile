@@ -1,1 +1,1 @@
-web: java -jar target/user-management-service-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar target/user-management-service-0.0.1-SNAPSHOT.jar

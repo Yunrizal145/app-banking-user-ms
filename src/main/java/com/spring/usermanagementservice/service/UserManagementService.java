@@ -65,9 +65,11 @@ public class UserManagementService {
             userProfileRepository.save(saveUserProfile);
 
             UserAuthentication userAuthentication = UserAuthentication.builder()
+                    .createdAt(new Date())
                     .userProfile(saveUserProfile)
                     .username(request.getUsername())
                     .isRegistered(false)
+                    .isDeleted(false)
                     .build();
             userAuthenticationRepository.save(userAuthentication);
 
