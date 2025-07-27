@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -13,19 +13,29 @@
 	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>user-management-service</name>
-	<description>user management service for banking</description>
-	<url/>
+	<description>User Management Service for Banking</description>
+
+	<url>https://github.com/Yunrizal145/app-banking-user-ms</url>
+
 	<licenses>
-		<license/>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
 	</licenses>
+
 	<developers>
-		<developer/>
+		<developer>
+			<id>yunrizal</id>
+			<name>Hamad Yunrizal</name>
+		</developer>
 	</developers>
+
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:https://github.com/Yunrizal145/app-banking-user-ms.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:Yunrizal145/app-banking-user-ms.git</developerConnection>
+		<url>https://github.com/Yunrizal145/app-banking-user-ms</url>
+		<tag>HEAD</tag>
 	</scm>
 	<properties>
 		<java.version>11</java.version>
@@ -119,27 +129,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>central</id>
-			<name>Maven Central Repository</name>
-			<url>https://repo.maven.apache.org/maven2</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>github-user-ms</id>
-			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Yunrizal145/app-banking-user-ms</url>
-		</repository>
-	</distributionManagement>
 
 </project>
