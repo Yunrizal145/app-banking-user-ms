@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.spring</groupId>
 	<artifactId>user-management-service</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>user-management-service</name>
 	<description>User Management Service for Banking</description>
@@ -129,5 +129,13 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>github-user-ms</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/Yunrizal145/app-banking-user-ms</url>
+		</repository>
+	</distributionManagement>
 
 </project>
