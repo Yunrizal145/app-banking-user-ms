@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +37,7 @@ public class AuthToken implements Serializable {
     private Long tokenId;
 
     @NotNull
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
 
