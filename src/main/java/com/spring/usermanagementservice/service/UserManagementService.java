@@ -170,6 +170,7 @@ public class UserManagementService {
         log.info("start get data user authentication");
         try {
             Optional<UserAuthentication> userAuthentication = userAuthenticationRepository.findTopByUsernameAndIsDeleted(request.getUsername(), false);
+            log.info("userAuthentication: {}", userAuthentication);
             if (userAuthentication.isEmpty()) {
                 throw new NullPointerException("Data User Authentication is null");
             }
