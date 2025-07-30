@@ -4,6 +4,7 @@ import com.spring.usermanagementservice.constant.Role;
 import com.spring.usermanagementservice.constant.UserStatus;
 import com.spring.usermanagementservice.dto.GetUserAuthenticationRequest;
 import com.spring.usermanagementservice.dto.GetUserAuthenticationResponse;
+import com.spring.usermanagementservice.dto.GetUserFavoriteResponse;
 import com.spring.usermanagementservice.dto.GetUserProfileRequest;
 import com.spring.usermanagementservice.dto.GetUserProfileResponse;
 import com.spring.usermanagementservice.dto.SaveDataUserRegisterRequest;
@@ -13,8 +14,10 @@ import com.spring.usermanagementservice.dto.SetPasswordResponse;
 import com.spring.usermanagementservice.dto.ValidateMpinRequest;
 import com.spring.usermanagementservice.dto.ValidateMpinResponse;
 import com.spring.usermanagementservice.model.UserAuthentication;
+import com.spring.usermanagementservice.model.UserFavorite;
 import com.spring.usermanagementservice.model.UserProfile;
 import com.spring.usermanagementservice.repository.UserAuthenticationRepository;
+import com.spring.usermanagementservice.repository.UserFavoriteRepository;
 import com.spring.usermanagementservice.repository.UserProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -33,6 +37,9 @@ public class UserManagementService {
 
     @Autowired
     private UserAuthenticationRepository userAuthenticationRepository;
+
+    @Autowired
+    private UserFavoriteRepository userFavoriteRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -205,6 +212,43 @@ public class UserManagementService {
                     .build();
         } catch (Exception e) {
             throw new RuntimeException("Error when validate mpin on database");
+        }
+    }
+
+    public void saveUserFavorite(UserFavorite request){
+        log.info("start saveUserFavorite");
+        log.info("start saveUserFavorite req : {}", request);
+        UserFavorite userFavorite = new UserFavorite();
+        try {
+            var getUserFavorite = userFavoriteRepository.findByAccountNumberAndIsDeleted(request.getAccountNumber(), false);
+            if (getUserFavorite.isEmpty()) {
+                userFavorite.setUserProfileId(request.getUserProfileId());
+                userFavorite.setCreatedAt(new Date());
+                userFavorite.setFavoriteName(request.getFavoriteName());
+                userFavorite.setAccountName(request.getAccountName());
+                userFavorite.setAccountNumber(request.getAccountNumber());
+                userFavorite.setBankName(request.getBankName());
+                userFavorite.setIsDeleted(false);
+                userFavoriteRepository.saveAndFlush(userFavorite);
+                log.info("user favorite success to save with name : {}", request.getFavoriteName() != null ? request.getFavoriteName() : request.getAccountName());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error when get user favorite : {}", e);
+        }
+    }
+
+    public GetUserFavoriteResponse getUserFavoriteByUserProfileId(GetUserProfileRequest request){
+        log.info("start getUserFavoriteByProfileId");
+        log.info("start getUserFavoriteByProfileId req : {}", request);
+        GetUserFavoriteResponse getUserFavoriteResponse = new GetUserFavoriteResponse();
+        try {
+            var userFavoriteList = userFavoriteRepository.findByUserProfileIdAndIsDeleted(request.getUserProfileId(), false);
+            if (Objects.nonNull(userFavoriteList)) {
+                getUserFavoriteResponse.setUserFavoriteList(userFavoriteList);
+            }
+            return getUserFavoriteResponse;
+        } catch (Exception e) {
+            throw new RuntimeException("Error when get user favorite : {}", e);
         }
     }
 }

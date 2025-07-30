@@ -2,6 +2,7 @@ package com.spring.usermanagementservice.controller;
 
 import com.spring.usermanagementservice.dto.GetUserAuthenticationRequest;
 import com.spring.usermanagementservice.dto.GetUserAuthenticationResponse;
+import com.spring.usermanagementservice.dto.GetUserFavoriteResponse;
 import com.spring.usermanagementservice.dto.GetUserProfileRequest;
 import com.spring.usermanagementservice.dto.GetUserProfileResponse;
 import com.spring.usermanagementservice.dto.SaveDataUserRegisterRequest;
@@ -10,6 +11,7 @@ import com.spring.usermanagementservice.dto.SetPasswordRequest;
 import com.spring.usermanagementservice.dto.SetPasswordResponse;
 import com.spring.usermanagementservice.dto.ValidateMpinRequest;
 import com.spring.usermanagementservice.dto.ValidateMpinResponse;
+import com.spring.usermanagementservice.model.UserFavorite;
 import com.spring.usermanagementservice.service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,5 +59,15 @@ public class UserManagementServiceController {
     @PostMapping("/validatempinbyencryption")
     public ValidateMpinResponse validateMpin(@RequestBody ValidateMpinRequest request) {
         return userManagementService.validateMpin(request);
+    }
+
+    @PostMapping("/saveuserfavorite")
+    public void saveUserFavorite(@RequestBody UserFavorite request) {
+        userManagementService.saveUserFavorite(request);
+    }
+
+    @PostMapping("/getuserfavorite")
+    public GetUserFavoriteResponse getUserFavorite(@RequestBody GetUserProfileRequest request) {
+        return userManagementService.getUserFavoriteByUserProfileId(request);
     }
 }
