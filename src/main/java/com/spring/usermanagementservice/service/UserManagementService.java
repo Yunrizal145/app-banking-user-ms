@@ -24,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -241,8 +243,13 @@ public class UserManagementService {
         log.info("start getUserFavoriteByProfileId");
         log.info("start getUserFavoriteByProfileId req : {}", request);
         GetUserFavoriteResponse getUserFavoriteResponse = new GetUserFavoriteResponse();
+        List<UserFavorite> userFavoriteList = new ArrayList<>();
         try {
-            var userFavoriteList = userFavoriteRepository.findByUserProfileIdAndIsDeleted(request.getUserProfileId(), false);
+            if (request.getBankName().isEmpty()) {
+                userFavoriteList = userFavoriteRepository.findByUserProfileIdAndBankNameIsNullAndIsDeleted(request.getUserProfileId(), false);
+            } else {
+                userFavoriteList = userFavoriteRepository.findByUserProfileIdAndBankNameIsNotNullAndIsDeleted(request.getUserProfileId(), false);
+            }
             if (Objects.nonNull(userFavoriteList)) {
                 getUserFavoriteResponse.setUserFavoriteList(userFavoriteList);
             }

@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserFavoriteRepository extends JpaRepository<UserFavorite, Long> {
 
-    List<UserFavorite> findByUserProfileIdAndIsDeleted(Long userProfileId, boolean isDeleted);
+    List<UserFavorite> findByUserProfileIdAndBankNameIsNullAndIsDeleted(Long userProfileId, boolean isDeleted);
+    List<UserFavorite> findByUserProfileIdAndBankNameIsNotNullAndIsDeleted(Long userProfileId, boolean isDeleted);
     Optional<UserFavorite> findByAccountNumberAndIsDeleted(String accountNumber, boolean isDeleted);
 }

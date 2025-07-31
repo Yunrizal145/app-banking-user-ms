@@ -17,4 +17,5 @@ public class GetUserProfileRequest implements Serializable {
     private Long userProfileId;
     private String phoneNumber;
     private String email;
+    private String bankName;
 }
