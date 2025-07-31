@@ -1,1 +1,1 @@
-web: java -jar target/user-management-service-0.0.4.jar
+web: java -jar target/user-management-service-0.0.5.jar
