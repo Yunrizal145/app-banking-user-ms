@@ -245,7 +245,7 @@ public class UserManagementService {
         GetUserFavoriteResponse getUserFavoriteResponse = new GetUserFavoriteResponse();
         List<UserFavorite> userFavoriteList = new ArrayList<>();
         try {
-            if (request.getBankName().isEmpty()) {
+            if (Objects.isNull(request.getBankName())) {
                 userFavoriteList = userFavoriteRepository.findByUserProfileIdAndBankNameIsNullAndIsDeleted(request.getUserProfileId(), false);
             } else {
                 userFavoriteList = userFavoriteRepository.findByUserProfileIdAndBankNameIsNotNullAndIsDeleted(request.getUserProfileId(), false);
