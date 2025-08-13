@@ -1,5 +1,7 @@
 package com.spring.usermanagementservice.controller;
 
+import com.spring.usermanagementservice.dto.GetListDataUserReqeust;
+import com.spring.usermanagementservice.dto.GetListDataUserResponse;
 import com.spring.usermanagementservice.dto.GetUserAuthenticationRequest;
 import com.spring.usermanagementservice.dto.GetUserAuthenticationResponse;
 import com.spring.usermanagementservice.dto.GetUserFavoriteResponse;
@@ -69,5 +71,10 @@ public class UserManagementServiceController {
     @PostMapping("/getuserfavorite")
     public GetUserFavoriteResponse getUserFavorite(@RequestBody GetUserProfileRequest request) {
         return userManagementService.getUserFavoriteByUserProfileId(request);
+    }
+
+    @PostMapping("/getlistuserdata")
+    public GetListDataUserResponse getListUserData(@RequestBody GetListDataUserReqeust request) {
+        return userManagementService.getListDataUser(request);
     }
 }

@@ -2,6 +2,8 @@ package com.spring.usermanagementservice.service;
 
 import com.spring.usermanagementservice.constant.Role;
 import com.spring.usermanagementservice.constant.UserStatus;
+import com.spring.usermanagementservice.dto.GetListDataUserReqeust;
+import com.spring.usermanagementservice.dto.GetListDataUserResponse;
 import com.spring.usermanagementservice.dto.GetUserAuthenticationRequest;
 import com.spring.usermanagementservice.dto.GetUserAuthenticationResponse;
 import com.spring.usermanagementservice.dto.GetUserFavoriteResponse;
@@ -256,6 +258,19 @@ public class UserManagementService {
             return getUserFavoriteResponse;
         } catch (Exception e) {
             throw new RuntimeException("Error when get user favorite : {}", e);
+        }
+    }
+
+    public GetListDataUserResponse getListDataUser(GetListDataUserReqeust request){
+        log.info("start getListDataUser");
+        log.info("start getListDataUser role : {}", request.getRole());
+        try {
+            var getListUserProfile = userProfileRepository.findUserProfileByRoleAndIsDeleted(request.getRole(), false);
+            return GetListDataUserResponse.builder()
+                    .userProfileList(getListUserProfile)
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException("error when get data user");
         }
     }
 }
